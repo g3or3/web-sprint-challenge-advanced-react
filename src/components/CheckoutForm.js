@@ -24,9 +24,11 @@ const CheckoutForm = ({ cart, removeFromCart }) => {
 		confirmation,
 	] = useForm(initialValue);
 
-	useEffect(() => {
-		if (showSuccessMessage && cart?.length !== 0) removeFromCart("all");
-	}, [showSuccessMessage, cart, removeFromCart]);
+	/* uncomment to remove items from cart when form is submitted  */
+
+	// useEffect(() => {
+	// 	if (showSuccessMessage && cart?.length !== 0) removeFromCart("all");
+	// }, [showSuccessMessage, cart, removeFromCart]);
 
 	return (
 		<>
