@@ -24,7 +24,9 @@ const CheckoutForm = ({ cart, removeFromCart }) => {
 		confirmation,
 	] = useForm(initialValue);
 
-	/* uncomment to remove items from cart when form is submitted  */
+	/* uncomment to remove items from cart when form is submitted  
+		does not pass mvp codegrade test when uncommented but passes
+		unit tests in CheckoutForm.test.js */
 
 	// useEffect(() => {
 	// 	if (showSuccessMessage && cart?.length !== 0) removeFromCart("all");
