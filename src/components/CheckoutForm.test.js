@@ -18,15 +18,23 @@ const testUser = {
 	zip: "12345",
 };
 
+const {
+	getByText,
+	getByLabelText,
+	getByRole,
+	getByTestId,
+	queryByTestId,
+} = screen;
+
 // Write up the two tests here and make sure they are testing what the title shows
 
 test("form header renders", () => {
 	render(<CheckoutForm />);
-	checkIfInDocument(screen.getByText, /checkout form/i);
+	checkIfInDocument(getByText, /checkout form/i);
 });
 
-// had to render both app and checkout form in order to ensure props were passed to
-// checkout form successfully
+// had to render both app and checkoutform in order to ensure
+// props were passed to checkout form successfully (cart and removeFromCart)
 test("form shows success message on submit with form details", () => {
 	const { fName, lName, address, city, state, zip } = testUser;
 
@@ -36,10 +44,12 @@ test("form shows success message on submit with form details", () => {
 		</App>
 	);
 
-	clickOnElem(screen.getByText, /cart/i, /checkout/i); // look up method followed by elems to click on
+	// look up method followed by elems to click on
+	clickOnElem(getByText, /cart/i, /checkout/i);
 
+	// look up method followed by elems we're asserting are in the doc
 	checkIfInDocument(
-		screen.getByLabelText, // look up method followed by elems we're asserting are in the doc
+		getByLabelText,
 		/first name:/i,
 		/last name:/i,
 		/address:/i,
@@ -48,8 +58,9 @@ test("form shows success message on submit with form details", () => {
 		/zip:/i
 	);
 
+	// look up method followed by field, value
 	typeInput(
-		screen.getByLabelText, // look up method followed by field, value
+		getByLabelText,
 		/first name:/i,
 		fName,
 		/last name:/i,
@@ -64,14 +75,15 @@ test("form shows success message on submit with form details", () => {
 		zip
 	);
 
-	checkIfNotInDocument(screen.queryByTestId, "successMessage");
+	// look up method followed by elems asserting are NOT in doc
+	checkIfNotInDocument(queryByTestId, "successMessage");
 
-	clickOnElem(screen.getByRole, "button");
+	clickOnElem(getByRole, "button");
 
-	checkIfInDocument(screen.getByTestId, "successMessage");
+	checkIfInDocument(getByTestId, "successMessage");
 
 	checkIfInDocument(
-		screen.getByText,
+		getByText,
 		`${fName} ${lName}`,
 		`${address}`,
 		`${city}, ${state} ${zip}`
